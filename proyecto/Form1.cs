@@ -77,7 +77,7 @@ namespace proyecto
                         byte[] fileBytes = new byte[myStream.Length];//tomar los bytes del archivo abierto "myStream"
                        
                         //string ruta = @"C:\Users\USUARIO\Desktop\AQUIBytes.txt";//donde se guarda los bytes
-                        var bytes = File.ReadAllBytes(path);//toma los bytes del archivo en ruta "direccion"
+                        /*var bytes = File.ReadAllBytes(path);//toma los bytes del archivo en ruta "direccion"
                         nombreCancion = openFileDialog1.SafeFileName;//Obtine el nombre del archivo
                         itm = new ListViewItem(nombreCancion);//
                         itm.SubItems.Add("Linkin Park");/// Agregar datos a un la columna
@@ -86,9 +86,9 @@ namespace proyecto
                         itm.SubItems.Add("183.6");
                         listView1.Items.Add(itm);                         
                         canciones.Add(bytes);
-
-                        String titulo = listView1.SelectedItems[i].SubItems[0].Text;
-                        String artista = listView1.SelectedItems[i].SubItems[1].Text;
+                        */
+                        //String titulo = listView1.SelectedItems[i].SubItems[0].Text;
+                        //String artista = listView1.SelectedItems[i].SubItems[1].Text;
                                
                             
                                 //string i = BitConverter.ToString(bytes);//Convierte los bytes en String
@@ -132,7 +132,7 @@ namespace proyecto
             String BuscarTexto = BoxBuscar.Text;
             String BuscarCategoria = BoxCategorias.Text;// Usa el dato que se elija
 
-            client.SearchSongMessage("Artista", BuscarTexto);
+            client.SearchSongMessage(BuscarCategoria, BuscarTexto);
 
             XmlDocument response = client.GetMessage();
 
@@ -141,18 +141,19 @@ namespace proyecto
             if (opcode.Equals("008"))
             {
                 XmlNodeList nodeList = response.SelectNodes("Message/Data");
-
+                listView1.Items.Clear();
+                
                 foreach (XmlNode nodes in nodeList)
                 {
-                    listView1.Items.Clear();
+                    //                    
 
                     itm = new ListViewItem(nodes.SelectSingleNode("titulo").InnerText);//
                     itm.SubItems.Add(nodes.SelectSingleNode("artista").InnerText);/// Agregar datos a un la columna
                     itm.SubItems.Add(nodes.SelectSingleNode("album").InnerText);
                     itm.SubItems.Add("2000");
                     itm.SubItems.Add("183.6");
-                    listView1.Items.Add(itm);  
-
+                    listView1.Items.Add(itm);
+                    
                     //String read = nodes.SelectSingleNode("titulo").InnerText;
                     //String read2 = nodes.SelectSingleNode("album").InnerText;
                     //Console.WriteLine("Titulo: " + read);
@@ -170,13 +171,24 @@ namespace proyecto
             //String artista = "", cancion = "";
 
             //obtiene cancion seleccionado
-            String cancion = listView1.SelectedItems[i].SubItems[0].Text;
+            String cancion = listView1.Items[i].SubItems[0].Text;
             //obtiene artista seleccionado
-            String artista = listView1.SelectedItems[i].SubItems[1].Text;
+            String artista = listView1.Items[i].SubItems[1].Text;
 
-            client.PlaySongMessage(cancion, artista);
+            Reproductor reproducir = new Reproductor(client, cancion, artista);
+            reproducir.Show();
+
+
+            //Cargando
+
+            /*client.PlaySongMessage(cancion, artista);
+
+
 
             XmlDocument response = client.GetMessage();
+
+            //Quitar cargando
+
             String opcode = response.SelectSingleNode("Message/opcode").InnerText;
 
             if (opcode.Equals("004"))
@@ -185,12 +197,9 @@ namespace proyecto
 
                 byte[] toStream = Convert.FromBase64String(bytes);
                 PlaySong(toStream);
-            }
+            }*/
 
-            var rd = new Mp3FileReader(path);
-            waveOut = new WaveOut();
-            waveOut.Init(rd);
-            waveOut.Play();
+
         }
 
         private void BtnPausa_Click(object sender, EventArgs e)
@@ -205,8 +214,9 @@ namespace proyecto
             if (listView1.SelectedItems.Count > 0)////DEvuelve el INDICE de la posicion que se selecciono 
             {
                 ListViewItem lv = listView1.SelectedItems[0];
-                i = lv.Index;               
-                byte[] cancion = canciones[i];
+                i = lv.Index;
+                
+                //byte[] cancion = canciones[i];
                 
             }  
         }
@@ -228,29 +238,82 @@ namespace proyecto
                         {
                             ds.Init(wave32);
                             ds.Play();
-                            Thread.Sleep(30000 * 5);
+                            Thread.Sleep(90000);
                         }
                     }
                 }
-
             }
         }
 
         private void Column_Click(object sender, ColumnClickEventArgs e)
         {
-            if (e.Column.ToString() == "0")
+            int t = 0;
+            int a = 0;
+            String[,] datos = new String[listView1.Items.Count, 5];
+            string dato;
+
+            while (t != listView1.Items.Count)
             {
+                
+                while (a != 5)
+                {
+                    dato = listView1.Items[t].SubItems[a].Text;
+                    datos[t,a] = dato;
+                    a++;
+                }
+
+               
+                a = 0;
+                t++;
+            }
+
+            if (e.Column.ToString() == "0")//Nombre Cancion
+            {
+                client.SortListMessage(datos, "Titulo");
 
             }
-            else if(e.Column.ToString() == "1")
+            else if(e.Column.ToString() == "1")//Artista
             {
+                client.SortListMessage(datos, "Artista");
+         
+            }
+            else if (e.Column.ToString() == "2")//Album
+            {
+                client.SortListMessage(datos, "Album");
 
             }
-            else if (e.Column.ToString() == "2")
-            {
 
+            XmlDocument response = client.GetMessage();
+
+            String opcode = response.SelectSingleNode("Message/opcode").InnerText;
+
+            if (opcode.Equals("008"))
+            {
+                XmlNodeList nodeList = response.SelectNodes("Message/Data");
+                listView1.Items.Clear();
+
+                foreach (XmlNode nodes in nodeList)
+                {
+                    //                    
+
+                    itm = new ListViewItem(nodes.SelectSingleNode("titulo").InnerText);//
+                    itm.SubItems.Add(nodes.SelectSingleNode("artista").InnerText);/// Agregar datos a un la columna
+                    itm.SubItems.Add(nodes.SelectSingleNode("album").InnerText);
+                    itm.SubItems.Add("2000");
+                    itm.SubItems.Add("183.6");
+                    listView1.Items.Add(itm);
+
+                    //String read = nodes.SelectSingleNode("titulo").InnerText;
+                    //String read2 = nodes.SelectSingleNode("album").InnerText;
+                    //Console.WriteLine("Titulo: " + read);
+                    //Console.WriteLine("Album: " + read2);
+                }
             }
         }
+
+
+
+
     }
 }
     

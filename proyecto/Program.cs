@@ -16,7 +16,9 @@ namespace proyecto
             Client client = new Client();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Form2 login = new Form2(client);
+            Form1 login = new Form1(client);
+            //login.Show();
+            //Form2 login = new Form2(client);
             login.Show();
             Application.Run();
             

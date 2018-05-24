@@ -39,12 +39,12 @@ namespace proyecto
             this.ColAlbum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColAño = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColDuracion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.BtnSincro = new System.Windows.Forms.Button();
-            this.BtnPausa = new System.Windows.Forms.Button();
-            this.BtnPlay = new System.Windows.Forms.Button();
-            this.BtnAgregar = new System.Windows.Forms.Button();
             this.BtnAgregarInfo = new System.Windows.Forms.Button();
             this.BoxCategorias = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.BtnSincro = new System.Windows.Forms.Button();
+            this.BtnPlay = new System.Windows.Forms.Button();
+            this.BtnAgregar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BoxBuscar
@@ -118,6 +118,41 @@ namespace proyecto
             this.ColDuracion.Text = "Duracion";
             this.ColDuracion.Width = 84;
             // 
+            // BtnAgregarInfo
+            // 
+            this.BtnAgregarInfo.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.BtnAgregarInfo.FlatAppearance.BorderSize = 0;
+            this.BtnAgregarInfo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnAgregarInfo.Location = new System.Drawing.Point(658, 48);
+            this.BtnAgregarInfo.Name = "BtnAgregarInfo";
+            this.BtnAgregarInfo.Size = new System.Drawing.Size(110, 30);
+            this.BtnAgregarInfo.TabIndex = 8;
+            this.BtnAgregarInfo.Text = "Agregar Informacion";
+            this.BtnAgregarInfo.UseVisualStyleBackColor = false;
+            // 
+            // BoxCategorias
+            // 
+            this.BoxCategorias.FormattingEnabled = true;
+            this.BoxCategorias.Items.AddRange(new object[] {
+            "Cancion",
+            "Artista",
+            "Album"});
+            this.BoxCategorias.Location = new System.Drawing.Point(79, 54);
+            this.BoxCategorias.Name = "BoxCategorias";
+            this.BoxCategorias.Size = new System.Drawing.Size(121, 21);
+            this.BoxCategorias.TabIndex = 9;
+            // 
+            // button1
+            // 
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Image = global::proyecto.Properties.Resources.eliminar;
+            this.button1.Location = new System.Drawing.Point(749, 123);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(35, 35);
+            this.button1.TabIndex = 10;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // BtnSincro
             // 
             this.BtnSincro.FlatAppearance.BorderSize = 0;
@@ -128,18 +163,6 @@ namespace proyecto
             this.BtnSincro.Size = new System.Drawing.Size(60, 65);
             this.BtnSincro.TabIndex = 7;
             this.BtnSincro.UseVisualStyleBackColor = true;
-            // 
-            // BtnPausa
-            // 
-            this.BtnPausa.FlatAppearance.BorderSize = 0;
-            this.BtnPausa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnPausa.Image = global::proyecto.Properties.Resources.Pausa;
-            this.BtnPausa.Location = new System.Drawing.Point(117, 373);
-            this.BtnPausa.Name = "BtnPausa";
-            this.BtnPausa.Size = new System.Drawing.Size(45, 45);
-            this.BtnPausa.TabIndex = 6;
-            this.BtnPausa.UseVisualStyleBackColor = true;
-            this.BtnPausa.Click += new System.EventHandler(this.BtnPausa_Click);
             // 
             // BtnPlay
             // 
@@ -168,48 +191,24 @@ namespace proyecto
             this.BtnAgregar.UseVisualStyleBackColor = false;
             this.BtnAgregar.Click += new System.EventHandler(this.BtnAgregar_Click);
             // 
-            // BtnAgregarInfo
-            // 
-            this.BtnAgregarInfo.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.BtnAgregarInfo.FlatAppearance.BorderSize = 0;
-            this.BtnAgregarInfo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.BtnAgregarInfo.Location = new System.Drawing.Point(658, 48);
-            this.BtnAgregarInfo.Name = "BtnAgregarInfo";
-            this.BtnAgregarInfo.Size = new System.Drawing.Size(110, 30);
-            this.BtnAgregarInfo.TabIndex = 8;
-            this.BtnAgregarInfo.Text = "Agregar Informacion";
-            this.BtnAgregarInfo.UseVisualStyleBackColor = false;
-            // 
-            // BoxCategorias
-            // 
-            this.BoxCategorias.FormattingEnabled = true;
-            this.BoxCategorias.Items.AddRange(new object[] {
-            "Cancion",
-            "Artista",
-            "Album"});
-            this.BoxCategorias.Location = new System.Drawing.Point(79, 54);
-            this.BoxCategorias.Name = "BoxCategorias";
-            this.BoxCategorias.Size = new System.Drawing.Size(121, 21);
-            this.BoxCategorias.TabIndex = 9;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.BoxCategorias);
             this.Controls.Add(this.BtnAgregarInfo);
             this.Controls.Add(this.BtnSincro);
             this.Controls.Add(this.listView1);
-            this.Controls.Add(this.BtnPausa);
             this.Controls.Add(this.BtnPlay);
             this.Controls.Add(this.BtnSalir);
             this.Controls.Add(this.BtnBuscar);
             this.Controls.Add(this.BoxBuscar);
             this.Controls.Add(this.BtnAgregar);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Oddyssey";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -222,7 +221,6 @@ namespace proyecto
         private System.Windows.Forms.Button BtnBuscar;
         private System.Windows.Forms.Button BtnSalir;
         private System.Windows.Forms.Button BtnPlay;
-        private System.Windows.Forms.Button BtnPausa;
         private System.Windows.Forms.ListView listView1;
         private ColumnHeader ColNombre;
         private ColumnHeader ColArtista;
@@ -232,6 +230,7 @@ namespace proyecto
         private Button BtnSincro;
         private Button BtnAgregarInfo;
         private ComboBox BoxCategorias;
+        private Button button1;
     }
 }
 

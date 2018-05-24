@@ -22,7 +22,7 @@ namespace proyecto.Cliente
         {
             //Casa  192.168.100.5
             //Celular 192.168.43.42
-            tcpClient = new TcpClient("192.168.100.2", 8000);
+            tcpClient = new TcpClient("172.18.87.87", 8000);
 
             //Convierte a String el Xml
             stream = tcpClient.GetStream();
@@ -77,7 +77,7 @@ namespace proyecto.Cliente
             XmlNode opcode = xml.CreateElement("opcode");
             opcode.InnerText = "005";
             rootNode.AppendChild(opcode);
-
+            
             XmlNode data = xml.CreateElement("Data");
             XmlNode song = xml.CreateElement("cancion");
             song.InnerText = file.Tag.Title;
@@ -89,6 +89,11 @@ namespace proyecto.Cliente
             gnere.InnerText = file.Tag.FirstGenre;
             XmlNode lyrics = xml.CreateElement("letra");
             lyrics.InnerText = file.Tag.Lyrics;
+            XmlNode year = xml.CreateElement("year");
+            year.InnerText=file.Tag.Year.ToString();
+            XmlNode duracion = xml.CreateElement("duracion");
+            duracion.InnerText=file.Properties.Duration.TotalSeconds.ToString();
+            
             XmlNode bytes = xml.CreateElement("bytes");
             bytes.InnerText = Convert.ToBase64String(copy);
 
@@ -96,8 +101,11 @@ namespace proyecto.Cliente
             data.AppendChild(artist);
             data.AppendChild(album);
             data.AppendChild(gnere);
+            data.AppendChild(year);
+            data.AppendChild(duracion);
             data.AppendChild(lyrics);
             data.AppendChild(bytes);
+            
 
             rootNode.AppendChild(data);
             Send(xml);
@@ -248,7 +256,7 @@ namespace proyecto.Cliente
         private void Send(XmlDocument message)
         {
             StreamWriter writer = new StreamWriter(stream);
-            String xml = Serialize(message).Replace("\n", String.Empty);
+            String xml = Serialize(message).Replace(System.Environment.NewLine, String.Empty);
 
             writer.WriteLine(xml);
             writer.Flush();
