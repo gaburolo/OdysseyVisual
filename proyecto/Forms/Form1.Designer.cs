@@ -41,7 +41,7 @@ namespace proyecto
             this.ColDuracion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.BtnAgregarInfo = new System.Windows.Forms.Button();
             this.BoxCategorias = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.BtnEliminar = new System.Windows.Forms.Button();
             this.BtnSincro = new System.Windows.Forms.Button();
             this.BtnPlay = new System.Windows.Forms.Button();
             this.BtnAgregar = new System.Windows.Forms.Button();
@@ -84,9 +84,9 @@ namespace proyecto
             this.ColDuracion});
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(61, 123);
+            this.listView1.Location = new System.Drawing.Point(46, 123);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(682, 234);
+            this.listView1.Size = new System.Drawing.Size(697, 234);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -101,22 +101,22 @@ namespace proyecto
             // ColArtista
             // 
             this.ColArtista.Text = "Artista";
-            this.ColArtista.Width = 144;
+            this.ColArtista.Width = 154;
             // 
             // ColAlbum
             // 
             this.ColAlbum.Text = "Album";
-            this.ColAlbum.Width = 145;
+            this.ColAlbum.Width = 136;
             // 
             // ColAño
             // 
             this.ColAño.Text = "Año";
-            this.ColAño.Width = 80;
+            this.ColAño.Width = 86;
             // 
             // ColDuracion
             // 
             this.ColDuracion.Text = "Duracion";
-            this.ColDuracion.Width = 84;
+            this.ColDuracion.Width = 92;
             // 
             // BtnAgregarInfo
             // 
@@ -129,6 +129,7 @@ namespace proyecto
             this.BtnAgregarInfo.TabIndex = 8;
             this.BtnAgregarInfo.Text = "Agregar Informacion";
             this.BtnAgregarInfo.UseVisualStyleBackColor = false;
+            this.BtnAgregarInfo.Click += new System.EventHandler(this.BtnAgregarInfo_Click);
             // 
             // BoxCategorias
             // 
@@ -142,16 +143,17 @@ namespace proyecto
             this.BoxCategorias.Size = new System.Drawing.Size(121, 21);
             this.BoxCategorias.TabIndex = 9;
             // 
-            // button1
+            // BtnEliminar
             // 
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Image = global::proyecto.Properties.Resources.eliminar;
-            this.button1.Location = new System.Drawing.Point(749, 123);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(35, 35);
-            this.button1.TabIndex = 10;
-            this.button1.UseVisualStyleBackColor = true;
+            this.BtnEliminar.FlatAppearance.BorderSize = 0;
+            this.BtnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnEliminar.Image = global::proyecto.Properties.Resources.eliminar;
+            this.BtnEliminar.Location = new System.Drawing.Point(749, 123);
+            this.BtnEliminar.Name = "BtnEliminar";
+            this.BtnEliminar.Size = new System.Drawing.Size(35, 35);
+            this.BtnEliminar.TabIndex = 10;
+            this.BtnEliminar.UseVisualStyleBackColor = true;
+            this.BtnEliminar.Click += new System.EventHandler(this.BtnEliminar_Click);
             // 
             // BtnSincro
             // 
@@ -197,7 +199,7 @@ namespace proyecto
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.BtnEliminar);
             this.Controls.Add(this.BoxCategorias);
             this.Controls.Add(this.BtnAgregarInfo);
             this.Controls.Add(this.BtnSincro);
@@ -230,7 +232,7 @@ namespace proyecto
         private Button BtnSincro;
         private Button BtnAgregarInfo;
         private ComboBox BoxCategorias;
-        private Button button1;
+        private Button BtnEliminar;
     }
 }
 

@@ -21,6 +21,7 @@ namespace proyecto
         private String cancion, artista;
         private byte[] toStream;
         private DirectSoundOut ds;
+        private int seconds;
 
         private void Play_Click(object sender, EventArgs e)
         {
@@ -44,6 +45,7 @@ namespace proyecto
                         ds = new DirectSoundOut();
                         ds.Init(wave32);
                         ds.Play();
+                        
                         Thread.Sleep(90000);
                         
                     }
@@ -53,6 +55,7 @@ namespace proyecto
 
         private void Stop_Click(object sender, EventArgs e)
         {
+            timer1.Stop();
             ds.Pause();
         }
 
@@ -102,22 +105,55 @@ namespace proyecto
 
             }
         }
-  
+
+        
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            BarraProgreso.Value += 1;
+            if (BarraProgreso.Value == BarraProgreso.Maximum)
+            {
+                timer1.Stop();
+            }
+            label1.Text = BarraProgreso.Value.ToString();
+        }
+        
+
         private void UpdateBar()
         {
-            int num = toStream.Length;
-            label1.Text=ds.GetPosition().ToString();
+            
+            //int num = toStream.Length;
+            BarraProgreso.Maximum = 224;
+
+
+            timer1.Start();
+            
+               // label1.Text = BarraProgreso.Value.ToString();
             /*while (true)
             {
-            
-                BarraProgreso.Value = (unchecked((int) ds.GetPosition()) * 100) / num;
+                Thread.Sleep(1000);
+                seconds++;
 
-                if (unchecked((int) ds.GetPosition()) == num)
+                if (seconds == 236)
                 {
                     Thread.CurrentThread.Abort();
-                    
-                    break;
                 }
+
+                BarraProgreso.Value += 1;
+            */
+                
+                //Thread.Sleep(1000);
+                
+
+                /*                BarraProgreso.Value = (unchecked((int) ds.GetPosition()) * 100) / num;
+
+
+                                if (unchecked((int) ds.GetPosition()) == num)
+                                {
+                                    Thread.CurrentThread.Abort();
+
+                                    break;
+                                }
 
             }*/
 

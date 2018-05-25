@@ -19,16 +19,16 @@ namespace proyecto
 {
     public partial class Form1 : Form
     {
+        private int cont = 0;
         private Client client;
         // BTN = BOTON
-        List<byte[]> canciones = new List<byte[]>();
-        string nombreCancion;
+        
         private string path = "";
 
         ListViewItem itm;
 
-        int i = 0;
-        private WaveOut waveOut;
+        private int i = 0;
+        
 
         public Form1(Client client)
         {
@@ -129,6 +129,7 @@ namespace proyecto
 
         private void BtnBuscar_Click(object sender, EventArgs e)
         {
+            cont = 0;
             String BuscarTexto = BoxBuscar.Text;
             String BuscarCategoria = BoxCategorias.Text;// Usa el dato que se elija
 
@@ -150,8 +151,8 @@ namespace proyecto
                     itm = new ListViewItem(nodes.SelectSingleNode("titulo").InnerText);//
                     itm.SubItems.Add(nodes.SelectSingleNode("artista").InnerText);/// Agregar datos a un la columna
                     itm.SubItems.Add(nodes.SelectSingleNode("album").InnerText);
-                    itm.SubItems.Add("2000");
-                    itm.SubItems.Add("183.6");
+                    itm.SubItems.Add(nodes.SelectSingleNode("year").InnerText);
+                    itm.SubItems.Add(nodes.SelectSingleNode("duracion").InnerText);
                     listView1.Items.Add(itm);
                     
                     //String read = nodes.SelectSingleNode("titulo").InnerText;
@@ -169,7 +170,14 @@ namespace proyecto
         private void BtnReproducir_Click(object sender, EventArgs e)
         {
             //String artista = "", cancion = "";
+            if (cont == 0)
+            {
+                MessageBox.Show("Debe elegir una cancion", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
 
+            
             //obtiene cancion seleccionado
             String cancion = listView1.Items[i].SubItems[0].Text;
             //obtiene artista seleccionado
@@ -179,45 +187,40 @@ namespace proyecto
             reproducir.Show();
 
 
-            //Cargando
+                //Cargando
 
-            /*client.PlaySongMessage(cancion, artista);
+                /*client.PlaySongMessage(cancion, artista);
 
 
 
-            XmlDocument response = client.GetMessage();
+                XmlDocument response = client.GetMessage();
 
-            //Quitar cargando
+                //Quitar cargando
 
-            String opcode = response.SelectSingleNode("Message/opcode").InnerText;
+                String opcode = response.SelectSingleNode("Message/opcode").InnerText;
 
-            if (opcode.Equals("004"))
-            {
-                String bytes = response.SelectSingleNode("Message/Data/bytes").InnerText;
+                if (opcode.Equals("004"))
+                {
+                    String bytes = response.SelectSingleNode("Message/Data/bytes").InnerText;
 
-                byte[] toStream = Convert.FromBase64String(bytes);
-                PlaySong(toStream);
-            }*/
-
+                    byte[] toStream = Convert.FromBase64String(bytes);
+                    PlaySong(toStream);
+                }*/
+            }
 
         }
 
-        private void BtnPausa_Click(object sender, EventArgs e)
-        {
-
-            waveOut.Stop();
-            
-        }
-
+        
         private void ListaCanciones_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             if (listView1.SelectedItems.Count > 0)////DEvuelve el INDICE de la posicion que se selecciono 
             {
                 ListViewItem lv = listView1.SelectedItems[0];
                 i = lv.Index;
-                
+                cont = 1;
                 //byte[] cancion = canciones[i];
-                
+
             }  
         }
 
@@ -299,8 +302,8 @@ namespace proyecto
                     itm = new ListViewItem(nodes.SelectSingleNode("titulo").InnerText);//
                     itm.SubItems.Add(nodes.SelectSingleNode("artista").InnerText);/// Agregar datos a un la columna
                     itm.SubItems.Add(nodes.SelectSingleNode("album").InnerText);
-                    itm.SubItems.Add("2000");
-                    itm.SubItems.Add("183.6");
+                    itm.SubItems.Add(nodes.SelectSingleNode("year").InnerText);
+                    itm.SubItems.Add(nodes.SelectSingleNode("duracion").InnerText);
                     listView1.Items.Add(itm);
 
                     //String read = nodes.SelectSingleNode("titulo").InnerText;
@@ -311,9 +314,39 @@ namespace proyecto
             }
         }
 
+        private void BtnAgregarInfo_Click(object sender, EventArgs e)
+        {
+            if (cont ==0)
+            {
+                MessageBox.Show("Debe elegir una cancion", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                EditarInfo editarInfo = new EditarInfo();
+                editarInfo.Show();
+            }
+            
+        }
 
+        private void BtnEliminar_Click(object sender, EventArgs e)
+        {
+            if (cont == 0)
+            {
+                MessageBox.Show("Debe elegir una cancion", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                //obtiene cancion seleccionado
+                String cancion = listView1.Items[i].SubItems[0].Text;
+                //obtiene artista seleccionado
+                String artista = listView1.Items[i].SubItems[1].Text;
+                String album = listView1.Items[i].SubItems[2].Text;
+                client.DeleteSongMessage(cancion, artista, album);
+                listView1.Items[i].Remove();
+            }   
+        }
 
-
+        
     }
 }
     

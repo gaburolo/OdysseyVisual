@@ -22,7 +22,7 @@ namespace proyecto.Cliente
         {
             //Casa  192.168.100.5
             //Celular 192.168.43.42
-            tcpClient = new TcpClient("172.18.87.87", 8000);
+            tcpClient = new TcpClient("172.18.127.132", 8000);
 
             //Convierte a String el Xml
             stream = tcpClient.GetStream();
@@ -230,7 +230,6 @@ namespace proyecto.Cliente
             for (int i = 0; i < array.GetLength(0); i++)
             {
                 XmlNode data = xml.CreateElement("Data");
-                XmlNode cancion = xml.CreateElement("cancion");
 
                 XmlNode titulo = xml.CreateElement("titulo");
                 titulo.InnerText = array[i, 0];
@@ -238,21 +237,24 @@ namespace proyecto.Cliente
                 artista.InnerText = array[i, 1];
                 XmlNode album = xml.CreateElement("album");
                 album.InnerText = array[i, 2];
+                XmlNode year = xml.CreateElement("year");
+                year.InnerText = array[i, 3];
+                XmlNode duracion = xml.CreateElement("duracion");
+                duracion.InnerText = array[i, 4];
+
 
                 data.AppendChild(titulo);
                 data.AppendChild(artista);
                 data.AppendChild(album);
+                data.AppendChild(year);
+                data.AppendChild(duracion);
 
-                //                data.AppendChild(cancion);
                 rootNode.AppendChild(data);
             }
-
-
             Send(xml);
-            //            String ge = Serialize(xml);
-            //            Console.Write(ge);
         }
 
+        
         private void Send(XmlDocument message)
         {
             StreamWriter writer = new StreamWriter(stream);
@@ -322,5 +324,32 @@ namespace proyecto.Cliente
             return message;
         }
 
+
+        public void DeleteSongMessage(String cancion, String artista, String album)
+        {
+            XmlDocument xml = new XmlDocument();
+            XmlNode rootNode = xml.CreateElement("Message");
+            xml.AppendChild(rootNode);
+
+            XmlNode opcode = xml.CreateElement("opcode");
+            opcode.InnerText = "012";
+            rootNode.AppendChild(opcode);
+
+            XmlNode data = xml.CreateElement("Data");
+            XmlNode song = xml.CreateElement("cancion");
+            song.InnerText = cancion;
+            XmlNode artist = xml.CreateElement("artista");
+            artist.InnerText = artista;
+            XmlNode albumNode = xml.CreateElement("album");
+            albumNode.InnerText = album;
+
+            data.AppendChild(song);
+            data.AppendChild(artist);
+            data.AppendChild(albumNode);
+
+            rootNode.AppendChild(data);
+
+            Send(xml);
+        }
     }
 }

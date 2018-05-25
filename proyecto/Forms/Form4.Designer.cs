@@ -32,8 +32,8 @@
             this.BarraProgreso = new System.Windows.Forms.ProgressBar();
             this.Pause = new System.Windows.Forms.Button();
             this.Play = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // BarraProgreso
@@ -79,6 +79,12 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "label1";
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Reproductor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -100,7 +106,7 @@
         private System.Windows.Forms.ProgressBar BarraProgreso;
         private System.Windows.Forms.Button Play;
         private System.Windows.Forms.Button Pause;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Timer timer1;
     }
 }
