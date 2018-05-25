@@ -351,5 +351,33 @@ namespace proyecto.Cliente
 
             Send(xml);
         }
+        public void SetMetadataMessage(String tipo, String cancion, String artista, String newInfo)
+        {
+            XmlDocument xml = new XmlDocument();
+            XmlNode rootNode = xml.CreateElement("Message");
+            xml.AppendChild(rootNode);
+
+            XmlNode opcode = xml.CreateElement("opcode");
+            opcode.InnerText = "014";
+            rootNode.AppendChild(opcode);
+
+            XmlNode data = xml.CreateElement("Data");
+            XmlNode type = xml.CreateElement("type");
+            type.InnerText = tipo;
+            XmlNode song = xml.CreateElement("cancion");
+            song.InnerText = cancion;
+            XmlNode artist = xml.CreateElement("artista");
+            artist.InnerText = artista;
+            XmlNode text = xml.CreateElement("text");
+            text.InnerText = newInfo;
+
+            data.AppendChild(type);
+            data.AppendChild(song);
+            data.AppendChild(artist);
+            data.AppendChild(text);
+
+            rootNode.AppendChild(data);
+            Send(xml);
+        }
     }
 }

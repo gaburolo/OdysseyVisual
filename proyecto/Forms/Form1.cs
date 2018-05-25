@@ -322,7 +322,11 @@ namespace proyecto
             }
             else
             {
-                EditarInfo editarInfo = new EditarInfo();
+                //obtiene cancion seleccionado
+                String cancion = listView1.Items[i].SubItems[0].Text;
+                //obtiene artista seleccionado
+                String artista = listView1.Items[i].SubItems[1].Text;
+                EditarInfo editarInfo = new EditarInfo(client,cancion,artista);
                 editarInfo.Show();
             }
             

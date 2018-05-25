@@ -7,13 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using proyecto.Cliente;
 namespace proyecto
 {
     public partial class EditarInfo : Form
     {
-        public EditarInfo()
+        Client client;
+        String cancion, artista;
+        
+        public EditarInfo(Client client, String cancion, String artista)
         {
+            this.client = client;
+            this.cancion = cancion;
+            this.artista = artista;
             InitializeComponent();
         }
 
@@ -32,9 +38,9 @@ namespace proyecto
             {
                 String Search = ComBoxEditar.Text;
                 String TextEdi = BoxEditar.Text;
-                MessageBox.Show("Editando: " + "Tipo: "+ Search+" Nuevo Valor: "+TextEdi);
-
-
+                
+                client.SetMetadataMessage(Search, cancion, artista, TextEdi);
+                MessageBox.Show("Editando: " + "Tipo: " + Search + " Nuevo Valor: " + TextEdi);
 
                 this.Close();
             }
