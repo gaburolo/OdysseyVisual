@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Xml;
 using NAudio.Wave;
 using proyecto.Cliente;
+using proyecto.Forms;
 
 namespace proyecto
 {
@@ -21,11 +22,26 @@ namespace proyecto
         private String cancion, artista;
         private byte[] toStream;
         private DirectSoundOut ds;
-        private int seconds;
+        private string duracion;
+        private int duracionInt;
 
+        public Reproductor(Client client, String cancion, String artista, string duracion)
+        {
+            
+            this.client = client;
+            this.cancion = cancion;
+            this.artista = artista;
+            this.duracion = duracion;
+            duracionInt = Convert.ToInt32(double.Parse(duracion));
+            InitializeComponent();
+            Reproducir();
+
+
+
+        }
         private void Play_Click(object sender, EventArgs e)
         {
-
+            timer1.Start();
             ds.Play();
 
         }
@@ -45,8 +61,8 @@ namespace proyecto
                         ds = new DirectSoundOut();
                         ds.Init(wave32);
                         ds.Play();
-                        
-                        Thread.Sleep(90000);
+
+                        Thread.Sleep(-1);
                         
                     }
                 }
@@ -60,25 +76,13 @@ namespace proyecto
         }
 
 
-        public Reproductor(Client client, String cancion, String artista)
-        {
-            this.client=client;
-            this.cancion = cancion;
-            this.artista = artista;
-            InitializeComponent();
-            Reproducir();
+        
 
-
-            
-        }
-
-        private void Stop_Click_1(object sender, EventArgs e)
-        {
-            ds.Stop();
-        }
+        
 
         private void Reproducir()
         {
+            duracionM.Text = duracionInt.ToString();
             client.PlaySongMessage(cancion, artista);
 
 
@@ -117,45 +121,37 @@ namespace proyecto
             }
             label1.Text = BarraProgreso.Value.ToString();
         }
-        
 
+        private void CloseRepro(object sender, FormClosedEventArgs e)
+        {
+            ds.Stop();
+            
+        }
+        /**
+         * 
+         * Abre la letra de la cancion
+         * */
+        private void letra_Click(object sender, EventArgs e)
+        {
+            Letra letra = new Letra(client);
+            letra.Show();
+        }
+
+        /**
+         * 
+         * Le da un maxico a la barra de duracion
+         * Inicia el relog
+         * */
         private void UpdateBar()
         {
             
-            //int num = toStream.Length;
-            BarraProgreso.Maximum = 224;
+            
+            BarraProgreso.Maximum =duracionInt;
 
 
             timer1.Start();
             
-               // label1.Text = BarraProgreso.Value.ToString();
-            /*while (true)
-            {
-                Thread.Sleep(1000);
-                seconds++;
-
-                if (seconds == 236)
-                {
-                    Thread.CurrentThread.Abort();
-                }
-
-                BarraProgreso.Value += 1;
-            */
-                
-                //Thread.Sleep(1000);
-                
-
-                /*                BarraProgreso.Value = (unchecked((int) ds.GetPosition()) * 100) / num;
-
-
-                                if (unchecked((int) ds.GetPosition()) == num)
-                                {
-                                    Thread.CurrentThread.Abort();
-
-                                    break;
-                                }
-
-            }*/
+          
 
         }
     }

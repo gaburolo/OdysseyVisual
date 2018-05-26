@@ -34,6 +34,8 @@
             this.Play = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.duracionM = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BarraProgreso
@@ -51,7 +53,7 @@
             this.Pause.FlatAppearance.BorderSize = 0;
             this.Pause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Pause.Image = global::proyecto.Properties.Resources.Pausa;
-            this.Pause.Location = new System.Drawing.Point(173, 29);
+            this.Pause.Location = new System.Drawing.Point(162, 29);
             this.Pause.Name = "Pause";
             this.Pause.Size = new System.Drawing.Size(96, 60);
             this.Pause.TabIndex = 3;
@@ -63,7 +65,7 @@
             this.Play.FlatAppearance.BorderSize = 0;
             this.Play.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Play.Image = global::proyecto.Properties.Resources.Play;
-            this.Play.Location = new System.Drawing.Point(78, 21);
+            this.Play.Location = new System.Drawing.Point(66, 21);
             this.Play.Name = "Play";
             this.Play.Size = new System.Drawing.Size(74, 77);
             this.Play.TabIndex = 2;
@@ -73,11 +75,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(75, 5);
+            this.label1.Location = new System.Drawing.Point(8, 122);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 4;
-            this.label1.Text = "label1";
             // 
             // timer1
             // 
@@ -85,17 +86,40 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // duracionM
+            // 
+            this.duracionM.AutoSize = true;
+            this.duracionM.Location = new System.Drawing.Point(308, 122);
+            this.duracionM.Name = "duracionM";
+            this.duracionM.Size = new System.Drawing.Size(0, 13);
+            this.duracionM.TabIndex = 5;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.Location = new System.Drawing.Point(257, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Letra";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.letra_Click);
+            // 
             // Reproductor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(337, 147);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.duracionM);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Pause);
             this.Controls.Add(this.Play);
             this.Controls.Add(this.BarraProgreso);
             this.Name = "Reproductor";
             this.Text = "Reproductor";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CloseRepro);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -108,5 +132,7 @@
         private System.Windows.Forms.Button Pause;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label duracionM;
+        private System.Windows.Forms.Button button1;
     }
 }

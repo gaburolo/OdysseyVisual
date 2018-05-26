@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using proyecto.Cliente;
+using proyecto.Forms;
 
 namespace proyecto
 {
@@ -16,10 +17,10 @@ namespace proyecto
             Client client = new Client();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //EditarInfo login = new EditarInfo();
-            Form1 login = new Form1(client);
-            //login.Show();
-            //Form2 login = new Form2(client);
+            
+            //Form1 login = new Form1(client);
+           // Letra login = new Letra(client);
+            Form2 login = new Form2(client);
             login.Show();
             Application.Run();
             

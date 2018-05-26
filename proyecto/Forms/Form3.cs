@@ -52,5 +52,11 @@ namespace proyecto
                 MessageBox.Show(data, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void CloseRegis(object sender, FormClosingEventArgs e)
+        {
+            Form2 frm = new Form2(client);
+            frm.Show();
+        }
     }
 }

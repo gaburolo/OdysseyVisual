@@ -182,8 +182,8 @@ namespace proyecto
             String cancion = listView1.Items[i].SubItems[0].Text;
             //obtiene artista seleccionado
             String artista = listView1.Items[i].SubItems[1].Text;
-
-            Reproductor reproducir = new Reproductor(client, cancion, artista);
+            string duracion =listView1.Items[i].SubItems[4].Text;
+            Reproductor reproducir = new Reproductor(client, cancion, artista,duracion);
             reproducir.Show();
 
 

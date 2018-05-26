@@ -22,7 +22,7 @@ namespace proyecto.Cliente
         {
             //Casa  192.168.100.5
             //Celular 192.168.43.42
-            tcpClient = new TcpClient("172.18.127.132", 8000);
+            tcpClient = new TcpClient("192.168.100.7", 8000);
 
             //Convierte a String el Xml
             stream = tcpClient.GetStream();

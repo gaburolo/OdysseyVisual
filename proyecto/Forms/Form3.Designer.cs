@@ -116,11 +116,11 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(14, 229);
+            this.label5.Location = new System.Drawing.Point(25, 229);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(181, 13);
+            this.label5.Size = new System.Drawing.Size(170, 13);
             this.label5.TabIndex = 8;
-            this.label5.Text = "Generos Musicales Favoritores";
+            this.label5.Text = "Generos Musicales Favoritos";
             // 
             // BoxGenero
             // 
@@ -187,6 +187,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Form3";
             this.Text = "Registro";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CloseRegis);
             this.ResumeLayout(false);
             this.PerformLayout();
 
