@@ -12,9 +12,16 @@ namespace proyecto
 {
     public partial class EditarInfo : Form
     {
+        //Variables de la clase EditarInfo
         Client client;
         String cancion, artista;
         
+        /// <summary>
+        /// Contrustor de la clase EditarInfo
+        /// </summary>
+        /// <param name="client"></param> Client
+        /// <param name="cancion"></param> String con el nombre de la cancion
+        /// <param name="artista"></param> String con el nombre del artista
         public EditarInfo(Client client, String cancion, String artista)
         {
             this.client = client;
@@ -23,6 +30,12 @@ namespace proyecto
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Evento de Boton enviar 
+        /// Envia al servidor la cualidad que debe editar y el nuevo valor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnEnviar_Click(object sender, EventArgs e)
         {
             if (ComBoxEditar.Text == "")

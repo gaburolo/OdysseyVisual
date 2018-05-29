@@ -19,29 +19,34 @@ namespace proyecto
 {
     public partial class Form1 : Form
     {
+        //Variables de la Clase Form1 - Pantalla Principal
         private int cont = 0;
         private Client client;
-        // BTN = BOTON
-        
         private string path = "";
-
         ListViewItem itm;
-
         private int i = 0;
         
-
+        /// <summary>
+        /// Constructor de la clase
+        /// </summary>
+        /// <param name="client"></param>Cliente
         public Form1(Client client)
         {
             this.client = client;
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Evento del boton agregar
+        /// Abre el explorador de archivos
+        /// Seleccione y envia al servidor la cancion
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnAgregar_Click(object sender, EventArgs e)
         {
-           
             Stream myStream = null;
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
-
             openFileDialog1.InitialDirectory = "c:\\";
             openFileDialog1.Filter = "mp3 files (*.mp3)|*.mp3";
             openFileDialog1.FilterIndex = 2;
@@ -54,13 +59,8 @@ namespace proyecto
                 {
                     if ((myStream = openFileDialog1.OpenFile()) != null)
                     {
-
-                        //using (myStream)
-                        //{
                         path = openFileDialog1.FileName;//Se obtiene la direccion
-
                         client.SendSongMessage(path);
-
                         XmlDocument response = client.GetMessage();
 
                         String opcode = response.SelectSingleNode("Message/opcode").InnerText;
@@ -73,42 +73,7 @@ namespace proyecto
                         {
                             MessageBox.Show("Cancion ya existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-
                         byte[] fileBytes = new byte[myStream.Length];//tomar los bytes del archivo abierto "myStream"
-                       
-                        //string ruta = @"C:\Users\USUARIO\Desktop\AQUIBytes.txt";//donde se guarda los bytes
-                        /*var bytes = File.ReadAllBytes(path);//toma los bytes del archivo en ruta "direccion"
-                        nombreCancion = openFileDialog1.SafeFileName;//Obtine el nombre del archivo
-                        itm = new ListViewItem(nombreCancion);//
-                        itm.SubItems.Add("Linkin Park");/// Agregar datos a un la columna
-                        itm.SubItems.Add("Hybrid Theory");
-                        itm.SubItems.Add("2000");
-                        itm.SubItems.Add("183.6");
-                        listView1.Items.Add(itm);                         
-                        canciones.Add(bytes);
-                        */
-                        //String titulo = listView1.SelectedItems[i].SubItems[0].Text;
-                        //String artista = listView1.SelectedItems[i].SubItems[1].Text;
-                               
-                            
-                                //string i = BitConverter.ToString(bytes);//Convierte los bytes en String
-                                //long i = BitConverter.ToInt64(bytes, 0);//Covierte los bytes a enteros en formato 64
-
-
-
-                                //Guardar datos en txt
-                                /*using (StreamWriter logs = File.AppendText(ruta))
-                                {
-                                    logs.Write("  ");
-                                    logs.Write("Con var: "+i);
-                                    logs.Write(" Stream: " + myStream.Read(fileBytes, 0, fileBytes.Length));
-                                    logs.Close();
-                                }*/
-
-
-
-
-                          //  }
                     }
                 }
                 catch (Exception ex)
@@ -121,12 +86,23 @@ namespace proyecto
         }
 
 
-
+        /// <summary>
+        ///  Evento del boton salir
+        ///  Cierra la aplicacion
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnSalir_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
+        /// <summary>
+        /// Evento del boton Buscar
+        /// Enviar al servidor los datos de busqueda y esta devuelve las canciones con las caracteristicas deceadas
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnBuscar_Click(object sender, EventArgs e)
         {
             cont = 0;
@@ -155,10 +131,7 @@ namespace proyecto
                     itm.SubItems.Add(nodes.SelectSingleNode("duracion").InnerText);
                     listView1.Items.Add(itm);
                     
-                    //String read = nodes.SelectSingleNode("titulo").InnerText;
-                    //String read2 = nodes.SelectSingleNode("album").InnerText;
-                    //Console.WriteLine("Titulo: " + read);
-                    //Console.WriteLine("Album: " + read2);
+                
                 }
             }
             else if (opcode.Equals("002")){
@@ -166,18 +139,21 @@ namespace proyecto
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        /// <summary>
+        /// Evento del boton reproducir
+        /// Envia al servidor la cancion desea y esta devuelve los bytes de la cancion
+        /// Abre una nueva ventana de reproductor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnReproducir_Click(object sender, EventArgs e)
         {
-            //String artista = "", cancion = "";
             if (cont == 0)
             {
                 MessageBox.Show("Debe elegir una cancion", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
-
-            
             //obtiene cancion seleccionado
             String cancion = listView1.Items[i].SubItems[0].Text;
             //obtiene artista seleccionado
@@ -186,31 +162,16 @@ namespace proyecto
             Reproductor reproducir = new Reproductor(client, cancion, artista,duracion);
             reproducir.Show();
 
-
-                //Cargando
-
-                /*client.PlaySongMessage(cancion, artista);
-
-
-
-                XmlDocument response = client.GetMessage();
-
-                //Quitar cargando
-
-                String opcode = response.SelectSingleNode("Message/opcode").InnerText;
-
-                if (opcode.Equals("004"))
-                {
-                    String bytes = response.SelectSingleNode("Message/Data/bytes").InnerText;
-
-                    byte[] toStream = Convert.FromBase64String(bytes);
-                    PlaySong(toStream);
-                }*/
             }
 
         }
 
-        
+        /// <summary>
+        /// Evento de la listview
+        /// Nos da el indice de la cancion que selecionamos
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ListaCanciones_SelectedIndexChanged(object sender, EventArgs e)
         {
             
@@ -221,51 +182,29 @@ namespace proyecto
                 cont = 1;
                 //byte[] cancion = canciones[i];
 
-            }  
-        }
-
-        private void PlaySong(byte[] mp3Array)
-        {
-            //byte[] copy = File.ReadAllBytes("torero.mp3");
-            //TagLib.File file = TagLib.File.Create("torero.mp3");
-            //Console.WriteLine(file.Tag.Title);
-            //Console.WriteLine(file.Tag.Album);
-
-            using (var mp3Stream = new MemoryStream(mp3Array))
-            {
-                using (var mp3FileReader = new Mp3FileReader(mp3Stream))
-                {
-                    using (var wave32 = new WaveChannel32(mp3FileReader, 0.1f, 1f))
-                    {
-                        using (var ds = new DirectSoundOut())
-                        {
-                            ds.Init(wave32);
-                            ds.Play();
-                            Thread.Sleep(90000);
-                        }
-                    }
-                }
             }
         }
 
+        /// <summary>
+        ///  Evento de las columnas de la listview
+        ///  Envia al server el dato con el cual desea ordenar las canciones
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Column_Click(object sender, ColumnClickEventArgs e)
         {
             int t = 0;
             int a = 0;
             String[,] datos = new String[listView1.Items.Count, 5];
             string dato;
-
             while (t != listView1.Items.Count)
             {
-                
                 while (a != 5)
                 {
                     dato = listView1.Items[t].SubItems[a].Text;
                     datos[t,a] = dato;
                     a++;
                 }
-
-               
                 a = 0;
                 t++;
             }
@@ -273,17 +212,14 @@ namespace proyecto
             if (e.Column.ToString() == "0")//Nombre Cancion
             {
                 client.SortListMessage(datos, "Titulo");
-
             }
             else if(e.Column.ToString() == "1")//Artista
             {
                 client.SortListMessage(datos, "Artista");
-         
             }
             else if (e.Column.ToString() == "2")//Album
             {
                 client.SortListMessage(datos, "Album");
-
             }
 
             XmlDocument response = client.GetMessage();
@@ -297,23 +233,23 @@ namespace proyecto
 
                 foreach (XmlNode nodes in nodeList)
                 {
-                    //                    
-
                     itm = new ListViewItem(nodes.SelectSingleNode("titulo").InnerText);//
                     itm.SubItems.Add(nodes.SelectSingleNode("artista").InnerText);/// Agregar datos a un la columna
                     itm.SubItems.Add(nodes.SelectSingleNode("album").InnerText);
                     itm.SubItems.Add(nodes.SelectSingleNode("year").InnerText);
                     itm.SubItems.Add(nodes.SelectSingleNode("duracion").InnerText);
                     listView1.Items.Add(itm);
-
-                    //String read = nodes.SelectSingleNode("titulo").InnerText;
-                    //String read2 = nodes.SelectSingleNode("album").InnerText;
-                    //Console.WriteLine("Titulo: " + read);
-                    //Console.WriteLine("Album: " + read2);
                 }
             }
         }
 
+        /// <summary>
+        /// Evento del boton de Agregarinfo
+        /// Toma los datos de la cancion selecciona
+        /// abre la venta de agregar info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnAgregarInfo_Click(object sender, EventArgs e)
         {
             if (cont ==0)
@@ -329,9 +265,16 @@ namespace proyecto
                 EditarInfo editarInfo = new EditarInfo(client,cancion,artista);
                 editarInfo.Show();
             }
-            
+
         }
 
+        /// <summary>
+        /// Evento del boton eliminar
+        /// Toma los datos de la cancion selecciona
+        /// envia al server el codigo para eliminar dicha cancion
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnEliminar_Click(object sender, EventArgs e)
         {
             if (cont == 0)

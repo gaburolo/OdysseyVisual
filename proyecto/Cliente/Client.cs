@@ -13,11 +13,13 @@ using NAudio.Wave;
 namespace proyecto.Cliente
 {
     public class Client
-    {
+    {   //Variables de la clase
         private TcpClient tcpClient;
         private NetworkStream stream;
         private XmlDocument message;
-
+        /// <summary>
+        /// Constructor de la clase
+        /// </summary>
         public Client()
         {
             //Casa  192.168.100.5
@@ -28,7 +30,10 @@ namespace proyecto.Cliente
             stream = tcpClient.GetStream();
             message = new XmlDocument();
         }
-
+        /// <summary>
+        /// Reproduce la cancion
+        /// </summary>
+        /// <param name="mp3Array"></param>
         private void PlaySong(byte[] mp3Array)
         {
             byte[] copy = File.ReadAllBytes("torero.mp3");
@@ -52,7 +57,11 @@ namespace proyecto.Cliente
                 }
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="xml"></param>
+        /// <returns></returns>
         public string Serialize(XmlDocument xml)
         {
             XmlSerializer xmlSerializer = new XmlSerializer(xml.GetType());
@@ -64,7 +73,10 @@ namespace proyecto.Cliente
             }
 
         }
-
+        /// <summary>
+        /// Envia al server la informacion de la cancion para guardarla 
+        /// </summary>
+        /// <param name="path"></param>
         public void SendSongMessage(String path)
         {
             TagLib.File file = TagLib.File.Create(path);
@@ -110,7 +122,11 @@ namespace proyecto.Cliente
             rootNode.AppendChild(data);
             Send(xml);
         }
-
+        /// <summary>
+        /// Envia mensaje al server para obtener los bytes de la cancion
+        /// </summary>
+        /// <param name="cancion"></param>
+        /// <param name="artista"></param>
         public void PlaySongMessage(String cancion, String artista)
         {
             XmlDocument xml = new XmlDocument();
@@ -132,7 +148,14 @@ namespace proyecto.Cliente
             rootNode.AppendChild(data);
             Send(xml);
         }
-
+        /// <summary>
+        /// Envia un mensaje al server para registrar los datos del usuario
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="name"></param>
+        /// <param name="surname"></param>
+        /// <param name="age"></param>
+        /// <param name="password"></param>
         public void SignInMessage(String username, String name, String surname, String age, String password)
         {
             XmlDocument xml = new XmlDocument();
@@ -165,6 +188,12 @@ namespace proyecto.Cliente
             Send(xml);
         }
 
+
+        /// <summary>
+        /// Envia un mensaje al server con los datos de usuario
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="password"></param>
         public void LogInMessage(String user, String password)
         {
             XmlDocument xml = new XmlDocument();
@@ -188,6 +217,12 @@ namespace proyecto.Cliente
             Send(xml);
         }
 
+
+        /// <summary>
+        /// Envia mensaje al server buscando una canciones especificas 
+        /// </summary>
+        /// <param name="tipo"></param>
+        /// <param name="text"></param>
         public void SearchSongMessage(String tipo, String text)
         {
             XmlDocument xml = new XmlDocument();
@@ -211,6 +246,12 @@ namespace proyecto.Cliente
             Send(xml);
         }
 
+
+        /// <summary>
+        /// Envia mensaje al server para ordenar las canciones
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="tipo"></param>
         public void SortListMessage(String[,] array, String tipo)
         {
             XmlDocument xml = new XmlDocument();
@@ -254,7 +295,10 @@ namespace proyecto.Cliente
             Send(xml);
         }
 
-        
+        /// <summary>
+        /// Enviar mensajes al server
+        /// </summary>
+        /// <param name="message"></param>
         private void Send(XmlDocument message)
         {
             StreamWriter writer = new StreamWriter(stream);
@@ -266,7 +310,9 @@ namespace proyecto.Cliente
             Receive();
         }
 
-
+        /// <summary>
+        /// Recibe mensajes enviados por el server
+        /// </summary>
         private void Receive()
         {
             StreamReader reader = new StreamReader(stream);
@@ -276,55 +322,24 @@ namespace proyecto.Cliente
             if (data != null)
             {
                 message.LoadXml(data);
-
-                //String opcode = message.SelectSingleNode("Message/opcode").InnerText;
-
-                //                Console.WriteLine(message.SelectSingleNode("Message/Data/info").InnerText);
-
-                //Reproduce la cancion que se pidio
-                //if (opcode.Equals("004"))
-                //{
-                //    String bytes = message.SelectSingleNode("Message/Data/bytes").InnerText;
-
-                //    byte[] toStream = Convert.FromBase64String(bytes);
-                //    PlaySong(toStream);
-                //}
-                ////Lee resultado de la busqueda
-                //else if (opcode.Equals("008"))
-                //{
-                //    XmlNodeList nodeList = message.SelectNodes("Message/Data");
-
-                //    foreach (XmlNode nodes in nodeList)
-                //    {
-                //        String read = nodes.SelectSingleNode("titulo").InnerText;
-                //        String read2 = nodes.SelectSingleNode("album").InnerText;
-                //        Console.WriteLine("Titulo: " + read);
-                //        Console.WriteLine("Album: " + read2);
-                //    }
-                //}
-
-
-                //                IWaveProvider provider = new RawSourceWaveStream(
-                //                    new MemoryStream(copy), new WaveFormat());
-                //                var waveOut = new WaveOut();
-                //                waveOut.Init(provider);
-                //                waveOut.Play();                
-
-                //                MediaPlayer mediaPlayer = new MediaPlayer(copy);
-                //                mediaPlayer.Play(copy);
-                //                while (true)
-                //                {
-                //                    Console.Write("");
-                //                }
             }
         }
 
+        /// <summary>
+        /// Obtiene el mensaje
+        /// </summary>
+        /// <returns></returns>
         public XmlDocument GetMessage()
         {
             return message;
         }
 
-
+        /// <summary>
+        /// Envia el mensaje al server para eliminar una cancion
+        /// </summary>
+        /// <param name="cancion"></param>
+        /// <param name="artista"></param>
+        /// <param name="album"></param>
         public void DeleteSongMessage(String cancion, String artista, String album)
         {
             XmlDocument xml = new XmlDocument();

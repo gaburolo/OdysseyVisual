@@ -14,14 +14,25 @@ namespace proyecto
 {
     public partial class Form3 : Form
     {
+        //Variables clase Form3-Registro
         private Client client;
 
+        /// <summary>
+        /// Constructor de la clase
+        /// </summary>
+        /// <param name="client"></param>Client
         public Form3(Client client)
         {
             this.client = client;
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Evento de la clase Registrar
+        /// Envia todos los datos de los boxtex al servidor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnRegistrar_Click(object sender, EventArgs e)
         {
             String NomUsuario = BoxNomUsuario.Text;
@@ -53,6 +64,12 @@ namespace proyecto
             }
         }
 
+        /// <summary>
+        /// Evento al cerrar la ventana
+        /// Abre una nueva ventana login al cerrar la actual
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CloseRegis(object sender, FormClosingEventArgs e)
         {
             Form2 frm = new Form2(client);

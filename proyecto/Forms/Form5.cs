@@ -12,12 +12,20 @@ using System.Windows.Forms;
 namespace proyecto.Forms
 {
     public partial class Letra : Form
-    {
+    {   
+        /// <summary>
+        /// Constructor de la clase
+        /// </summary>
+        /// <param name="client"></param>
         public Letra(Client client)
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Muestra la letra de la cancion
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Letra_Load(object sender, EventArgs e)
         {
             textBox1.Text=(@"I'm tired of being what 
