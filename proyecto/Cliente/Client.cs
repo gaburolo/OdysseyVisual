@@ -24,8 +24,7 @@ namespace proyecto.Cliente
         {
             //Casa  192.168.100.5
             //Celular 192.168.43.42
-            tcpClient = new TcpClient("192.168.100.7", 8000);
-
+            tcpClient = new TcpClient("172.18.239.149", 8000);
             //Convierte a String el Xml
             stream = tcpClient.GetStream();
             message = new XmlDocument();
@@ -58,7 +57,7 @@ namespace proyecto.Cliente
             }
         }
         /// <summary>
-        /// 
+        /// Pasar de xml a String
         /// </summary>
         /// <param name="xml"></param>
         /// <returns></returns>
@@ -230,7 +229,12 @@ namespace proyecto.Cliente
             xml.AppendChild(rootNode);
 
             XmlNode opcode = xml.CreateElement("opcode");
-            opcode.InnerText = "007";
+            if (tipo.Equals("Letra")){
+                opcode.InnerText = "015";
+            } else
+            {
+                opcode.InnerText = "007";
+            }
             rootNode.AppendChild(opcode);
 
             XmlNode data = xml.CreateElement("Data");
@@ -322,6 +326,8 @@ namespace proyecto.Cliente
             if (data != null)
             {
                 message.LoadXml(data);
+
+               
             }
         }
 
@@ -366,6 +372,15 @@ namespace proyecto.Cliente
 
             Send(xml);
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tipo"></param>
+        /// <param name="cancion"></param>
+        /// <param name="artista"></param>
+        /// <param name="newInfo"></param>
         public void SetMetadataMessage(String tipo, String cancion, String artista, String newInfo)
         {
             XmlDocument xml = new XmlDocument();
@@ -384,7 +399,7 @@ namespace proyecto.Cliente
             XmlNode artist = xml.CreateElement("artista");
             artist.InnerText = artista;
             XmlNode text = xml.CreateElement("text");
-            text.InnerText = newInfo;
+            text.InnerText = newInfo.Replace(System.Environment.NewLine, String.Empty);
 
             data.AppendChild(type);
             data.AppendChild(song);

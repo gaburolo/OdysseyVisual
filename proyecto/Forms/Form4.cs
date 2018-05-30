@@ -23,8 +23,9 @@ namespace proyecto
         private String cancion, artista;
         private byte[] toStream;
         private DirectSoundOut ds;
-        private string duracion;
+        private double duracion;
         private int duracionInt;
+        private String letra;
         /// <summary>
         /// Constructor de la clase
         /// </summary>
@@ -32,16 +33,18 @@ namespace proyecto
         /// <param name="cancion"></param>String con el nombre de la cancion
         /// <param name="artista"></param>String con el nombre del artista
         /// <param name="duracion"></param> String con la duracion de la cancion
-        public Reproductor(Client client, String cancion, String artista, string duracion)
+        public Reproductor(Client client, String cancion, String artista, double duracion)
         {
             
             this.client = client;
             this.cancion = cancion;
             this.artista = artista;
             this.duracion = duracion;
-            duracionInt = Convert.ToInt32(double.Parse(duracion));
+
+            duracionInt = Convert.ToInt32(duracion);
             InitializeComponent();
             Reproducir();
+            UpdateBar();
 
 
 
@@ -120,15 +123,13 @@ namespace proyecto
             if (opcode.Equals("004"))
             {
                 String bytes = response.SelectSingleNode("Message/Data/bytes").InnerText;
+                letra = response.SelectSingleNode("Message/Data/letra").InnerText;
+
 
                 toStream = Convert.FromBase64String(bytes);
 
                 Thread t = new Thread(new ThreadStart(PlaySong));
                 t.Start();
-                Console.Read();
-
-                Thread t2 = new Thread(new ThreadStart(UpdateBar));
-                t2.Start();
                 Console.Read();
 
             }
@@ -173,8 +174,9 @@ namespace proyecto
         /// <param name="e"></param>
         private void letra_Click(object sender, EventArgs e)
         {
-            Letra letra = new Letra(client);
-            letra.Show();
+
+            Letra leerLetra = new Letra(client, letra);
+            leerLetra.Show();
         }
 
         
@@ -184,9 +186,9 @@ namespace proyecto
         /// </summary>
         private void UpdateBar()
         {
-            
-            
-            BarraProgreso.Maximum =duracionInt;
+
+
+            BarraProgreso.Maximum = duracionInt;
 
 
             timer1.Start();

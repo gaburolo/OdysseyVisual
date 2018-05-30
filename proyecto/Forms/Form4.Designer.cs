@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Reproductor));
             this.BarraProgreso = new System.Windows.Forms.ProgressBar();
             this.Pause = new System.Windows.Forms.Button();
             this.Play = new System.Windows.Forms.Button();
@@ -53,9 +54,9 @@
             this.Pause.FlatAppearance.BorderSize = 0;
             this.Pause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Pause.Image = global::proyecto.Properties.Resources.Pausa;
-            this.Pause.Location = new System.Drawing.Point(162, 29);
+            this.Pause.Location = new System.Drawing.Point(185, 54);
             this.Pause.Name = "Pause";
-            this.Pause.Size = new System.Drawing.Size(96, 60);
+            this.Pause.Size = new System.Drawing.Size(45, 45);
             this.Pause.TabIndex = 3;
             this.Pause.UseVisualStyleBackColor = true;
             this.Pause.Click += new System.EventHandler(this.Stop_Click);
@@ -65,9 +66,9 @@
             this.Play.FlatAppearance.BorderSize = 0;
             this.Play.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Play.Image = global::proyecto.Properties.Resources.Play;
-            this.Play.Location = new System.Drawing.Point(66, 21);
+            this.Play.Location = new System.Drawing.Point(103, 54);
             this.Play.Name = "Play";
-            this.Play.Size = new System.Drawing.Size(74, 77);
+            this.Play.Size = new System.Drawing.Size(45, 45);
             this.Play.TabIndex = 2;
             this.Play.UseVisualStyleBackColor = true;
             this.Play.Click += new System.EventHandler(this.Play_Click);
@@ -75,9 +76,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 122);
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.3F);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.label1.Location = new System.Drawing.Point(12, 122);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 13);
+            this.label1.Size = new System.Drawing.Size(0, 15);
             this.label1.TabIndex = 4;
             // 
             // timer1
@@ -89,9 +93,12 @@
             // duracionM
             // 
             this.duracionM.AutoSize = true;
-            this.duracionM.Location = new System.Drawing.Point(308, 122);
+            this.duracionM.BackColor = System.Drawing.Color.Transparent;
+            this.duracionM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.3F);
+            this.duracionM.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.duracionM.Location = new System.Drawing.Point(301, 122);
             this.duracionM.Name = "duracionM";
-            this.duracionM.Size = new System.Drawing.Size(0, 13);
+            this.duracionM.Size = new System.Drawing.Size(0, 15);
             this.duracionM.TabIndex = 5;
             // 
             // button1
@@ -110,6 +117,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::proyecto.Properties.Resources.Diablo;
             this.ClientSize = new System.Drawing.Size(337, 147);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.duracionM);
@@ -117,6 +125,7 @@
             this.Controls.Add(this.Pause);
             this.Controls.Add(this.Play);
             this.Controls.Add(this.BarraProgreso);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Reproductor";
             this.Text = "Reproductor";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CloseRepro);

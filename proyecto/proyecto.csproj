@@ -186,5 +186,11 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Diablo-Wallpaper-Desktop-PIC-MCH058734.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Diablo.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditarInfo));
             this.ComBoxEditar = new System.Windows.Forms.ComboBox();
             this.BoxEditar = new System.Windows.Forms.TextBox();
             this.BtnEnviar = new System.Windows.Forms.Button();
@@ -40,7 +41,8 @@
             "Cancion",
             "Artista",
             "Album",
-            "Año"});
+            "Año",
+            "Letra"});
             this.ComBoxEditar.Location = new System.Drawing.Point(12, 42);
             this.ComBoxEditar.Name = "ComBoxEditar";
             this.ComBoxEditar.Size = new System.Drawing.Size(121, 21);
@@ -49,6 +51,7 @@
             // BoxEditar
             // 
             this.BoxEditar.Location = new System.Drawing.Point(139, 42);
+            this.BoxEditar.Multiline = true;
             this.BoxEditar.Name = "BoxEditar";
             this.BoxEditar.Size = new System.Drawing.Size(195, 20);
             this.BoxEditar.TabIndex = 1;
@@ -71,6 +74,7 @@
             this.Controls.Add(this.BtnEnviar);
             this.Controls.Add(this.BoxEditar);
             this.Controls.Add(this.ComBoxEditar);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EditarInfo";
             this.Text = "Editar Informacion";
             this.ResumeLayout(false);

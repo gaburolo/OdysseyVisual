@@ -14,6 +14,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Threading;
 using proyecto.Cliente;
+using System.Globalization;
 
 namespace proyecto
 {
@@ -130,8 +131,10 @@ namespace proyecto
                     itm.SubItems.Add(nodes.SelectSingleNode("year").InnerText);
                     itm.SubItems.Add(nodes.SelectSingleNode("duracion").InnerText);
                     listView1.Items.Add(itm);
+
                     
-                
+                    
+
                 }
             }
             else if (opcode.Equals("002")){
@@ -158,7 +161,7 @@ namespace proyecto
             String cancion = listView1.Items[i].SubItems[0].Text;
             //obtiene artista seleccionado
             String artista = listView1.Items[i].SubItems[1].Text;
-            string duracion =listView1.Items[i].SubItems[4].Text;
+            double duracion =double.Parse(listView1.Items[i].SubItems[4].Text, CultureInfo.InvariantCulture);
             Reproductor reproducir = new Reproductor(client, cancion, artista,duracion);
             reproducir.Show();
 
@@ -180,7 +183,7 @@ namespace proyecto
                 ListViewItem lv = listView1.SelectedItems[0];
                 i = lv.Index;
                 cont = 1;
-                //byte[] cancion = canciones[i];
+               
 
             }
         }

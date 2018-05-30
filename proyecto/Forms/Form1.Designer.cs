@@ -30,6 +30,7 @@ namespace proyecto
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.BoxBuscar = new System.Windows.Forms.TextBox();
             this.BtnBuscar = new System.Windows.Forms.Button();
             this.BtnSalir = new System.Windows.Forms.Button();
@@ -45,6 +46,7 @@ namespace proyecto
             this.BtnSincro = new System.Windows.Forms.Button();
             this.BtnPlay = new System.Windows.Forms.Button();
             this.BtnAgregar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // BoxBuscar
@@ -137,7 +139,8 @@ namespace proyecto
             this.BoxCategorias.Items.AddRange(new object[] {
             "Cancion",
             "Artista",
-            "Album"});
+            "Album",
+            "Letra"});
             this.BoxCategorias.Location = new System.Drawing.Point(79, 54);
             this.BoxCategorias.Name = "BoxCategorias";
             this.BoxCategorias.Size = new System.Drawing.Size(121, 21);
@@ -193,12 +196,22 @@ namespace proyecto
             this.BtnAgregar.UseVisualStyleBackColor = false;
             this.BtnAgregar.Click += new System.EventHandler(this.BtnAgregar_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(137, 35);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "label1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.BtnEliminar);
             this.Controls.Add(this.BoxCategorias);
             this.Controls.Add(this.BtnAgregarInfo);
@@ -209,6 +222,7 @@ namespace proyecto
             this.Controls.Add(this.BtnBuscar);
             this.Controls.Add(this.BoxBuscar);
             this.Controls.Add(this.BtnAgregar);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Oddyssey";
             this.ResumeLayout(false);
@@ -233,6 +247,7 @@ namespace proyecto
         private Button BtnAgregarInfo;
         private ComboBox BoxCategorias;
         private Button BtnEliminar;
+        private Label label1;
     }
 }
 
